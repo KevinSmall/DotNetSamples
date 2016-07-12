@@ -1,4 +1,21 @@
-# Unity Client Architecture
+# .NET Samples
+
+## 1) Pluggable Achievements Handler
+![](PluggableAchievementMgr.png?raw=true)
+cf XBL and Local for Android, ease of use for other eg Game Centre
+
+
+## 2) Using Lambdas to Define Behaviour
+Awards handler using lambdas - highlight award definition 
+C:\Users\kevin\Documents\Pencel\GerbilPhysicsMobile\GerbilPhysicsMobile\GerbilPhysicsMobile\Game\Awards\AwardDefinition.cs
+
+## 3) Project Design for Multi-Platform Development
+A longer version with more explanation is [here].(http://www.pencelgames.com/blog/porting-android-solution-and-project-structure).
+
+![](XamarinAndMonoGame.png?raw=true)
+
+![](UseOfInterfaces.png?raw=true)
+
 
 ## 1) Unity and C#
 If you are new to either Unity or C#, and haven't already done so, at least do the "Interface and Essentials" and "Scripting" tutorials from here: http://unity3d.com/learn/tutorials.  You need to be able to examine the Unity Console output and debug a running Unity project in Visual Studio.  You need to know enough C# to understand how events and callbacks work - these are used throughout the code.
