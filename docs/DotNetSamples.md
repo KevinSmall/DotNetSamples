@@ -66,7 +66,7 @@ As an example, here is an Award being defined, notice the AwardLogic is a lambda
          });
 ```
 
-Then to execute this logic during Award detection, see the AwardRepository CheckAwardsAndAwardThem() called by the Update() method.
+Then to execute this logic during Award detection, see the AwardRepository CheckAwardsAndAwardThem() called by the Update() method.  This bethod, shown below, executes Award detection for EVERY Award record.
 
 ```csharp
       /// <summary>
@@ -84,6 +84,8 @@ Then to execute this logic during Award detection, see the AwardRepository Check
          }
       }
 ```
+
+The benefit of this design, is that adding a new Award, and having it detected, is simply a case of defining a new Award record, with some logic held in that record.  All other code remains unchanged, in particular the Award detection code remains unchanged.
 
 ## Sample 3) Project Design for Multi-Platform Development
 A longer version with more explanation is [here](http://www.pencelgames.com/blog/porting-android-solution-and-project-structure).
