@@ -51,37 +51,34 @@ namespace GP
 
       public void Update(float elapsedTime)
       {
-         //disable awards
-         return;
+         if (!_contentLoaded)
+            return;
 
-         //if (!_contentLoaded)
-         //   return;
+         // We need an initial delay to not have our dummy achievement notifications sent whilst loading screen is still starting
+         // up, because the notification popup then gets squashed by the real main menu screen appearing
+         if (_timerInitialDelay > 0f)
+         {
+            _timerInitialDelay -= elapsedTime;
+            return;
+         }
 
-         //// We need an initial delay to not have our dummy achievement notifications sent whilst loading screen is still starting
-         //// up, because the notification popup then gets squashed by the real main menu screen appearing
-         //if (_timerInitialDelay > 0f)
-         //{
-         //   _timerInitialDelay -= elapsedTime;
-         //   return;
-         //}
+         // We check for awards on a regular basis, but not every frame. Critical checks can be forced from outside
+         // by calling the Check* method (for example after a pickup is collected we'd like to check for the Einstein award)
+         if (_timerHeartbeat > 0f)
+         {
+            _timerHeartbeat -= elapsedTime;
+            return;
+         }
+         _timerHeartbeat = 2f;
 
-         //// We check for awards on a regular basis, but not every frame. Critical checks can be forced from outside
-         //// by calling the Check* method (for example after a pickup is collected we'd like to check for the Einstein award)
-         //if (_timerHeartbeat > 0f)
-         //{
-         //   _timerHeartbeat -= elapsedTime;
-         //   return;
-         //}
-         //_timerHeartbeat = 2f;
+         // Update key figures that we have to get ourselves (most other data is pushed to us from gameplayscreen or actors)
+         _keyFigures[KeyFigureID.WipeoutsCount].Count = _screenManager.LevelRepository.GetTotalWipeouts();
+         _keyFigures[KeyFigureID.LevelsCompletedCount].Count = _screenManager.LevelRepository.GetTotalComplete();
+         _keyFigures[KeyFigureID.GoldChestsCount].Count = _screenManager.LevelRepository.GetTotalGold();
+         _keyFigures[KeyFigureID.TotalScoreCount].Count = _screenManager.LevelRepository.GetTotalScore();
 
-         //// Update key figures that we have to get ourselves (most other data is pushed to us from gameplayscreen or actors)
-         //_keyFigures[KeyFigureID.WipeoutsCount].Count = _screenManager.LevelRepository.GetTotalWipeouts();
-         //_keyFigures[KeyFigureID.LevelsCompletedCount].Count = _screenManager.LevelRepository.GetTotalComplete();
-         //_keyFigures[KeyFigureID.GoldChestsCount].Count = _screenManager.LevelRepository.GetTotalGold();
-         //_keyFigures[KeyFigureID.TotalScoreCount].Count = _screenManager.LevelRepository.GetTotalScore();
-
-         //// Award the awards!
-         //CheckAwardsAndAwardThem();
+         // Award the awards!
+         CheckAwardsAndAwardThem();
       }
 
       /// <summary>
@@ -89,17 +86,14 @@ namespace GP
       /// </summary>
       public void CheckAwardsAndAwardThem()
       {
-         //disable awards
-         return;
-
-         //foreach (AwardDefinition ad in _awardDefinitions)
-         //{
-         //   if (!ad.HasBeenAwardedThisSession && ad.AwardLogic())
-         //   {
-         //      _screenManager.AchievementManager.AwardAchievement(ad.AchievementName);
-         //      ad.HasBeenAwardedThisSession = true;
-         //   }
-         //}
+         foreach (AwardDefinition ad in _awardDefinitions)
+         {
+            if (!ad.HasBeenAwardedThisSession && ad.AwardLogic())
+            {
+               _screenManager.AchievementManager.AwardAchievement(ad.AchievementName);
+               ad.HasBeenAwardedThisSession = true;
+            }
+         }
       }
 
       /// <summary>
