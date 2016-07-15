@@ -5,9 +5,9 @@ The diagram below shows the design used to implemented a pluggable achievments h
 
 ![](PluggableAchievementMgr.png?raw=true)
 
-The cross platform parts monitor game state and if an Award has been detected, they raise this with the Award Manager.  The Award Manager checks to see if this Award has been given before.  If it is a new Award, then a call is made to whatever Achievement Manager has been implemented.  Because each Achievement Manager implements the same [Interface IAchievementManager](https://github.com/KevinSmall/DotNetSamples/blob/master/source/Live%20Integration/IAchievementManager.cs), they are truly pluggable, and implementing a new one (OpenFeint, iOS Game Center) requires no code changes to the rest of the Award objects.
+The cross platform parts on the right in the diagram above monitor game state and if an Award has been detected, they raise this with the Award Manager.  The Award Manager checks to see if this Award has been given before.  If it is a new Award, then a call is made to whatever Achievement Manager has been implemented.  Because each Achievement Manager implements the same [Interface IAchievementManager](https://github.com/KevinSmall/DotNetSamples/blob/master/source/Live%20Integration/IAchievementManager.cs), they are truly pluggable, and implementing a new one (OpenFeint, iOS Game Center) requires no code changes to the rest of the Award objects.
 
-See code in the folders "Live Integration" and "Awards". Two Achievement Manager implementations went live, one for [Xbox LIVE](https://github.com/KevinSmall/DotNetSamples/blob/master/source/Live%20Integration/AchievementManagerXBL.cs) and one for [Android](https://github.com/KevinSmall/DotNetSamples/blob/master/source/Live%20Integration/AchievementManagerLocal.cs).
+See code in the sub folders ["/source/Live Integration"](https://github.com/KevinSmall/DotNetSamples/tree/master/source/Live%20Integration) and ["source/Awards"](https://github.com/KevinSmall/DotNetSamples/tree/master/source/Awards). Two Achievement Manager implementations went live, one for [Xbox LIVE](https://github.com/KevinSmall/DotNetSamples/blob/master/source/Live%20Integration/AchievementManagerXBL.cs) and one for [Android](https://github.com/KevinSmall/DotNetSamples/blob/master/source/Live%20Integration/AchievementManagerLocal.cs).
 
 ## Sample 2) Using Lambdas to Define Behaviour
 As part of the sample 1 code, each Award has to be defined.  An Award has to contain some logic, eg "make 10 explosions" or "score 100 points in 10 seconds".  This logic can be defined using C Sharp Lambdas, which makes for much cleaner code.  This code is found in the "Awards" folder.  How it works is as follows.
@@ -66,7 +66,7 @@ As an example, here is an Award being defined, notice the AwardLogic is a lambda
          });
 ```
 
-Then to execute this logic during Award detection, see the AwardRepository CheckAwardsAndAwardThem() called by the Update() method.  This bethod, shown below, executes Award detection for EVERY Award record.
+Then to execute this logic during Award detection, see the AwardRepository CheckAwardsAndAwardThem() called by the Update() method.  This method, shown below, executes Award detection for EVERY Award record.
 
 ```csharp
       /// <summary>
